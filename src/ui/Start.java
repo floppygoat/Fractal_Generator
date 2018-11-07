@@ -1,13 +1,12 @@
 package ui;
 
 import Complex.ComplexNumber;
-import Complex.Mandelbrot;
-
-import java.util.Scanner;
+import ComplexFractal.ComplexSet;
+import ComplexFractal.Julia;
+import ComplexFractal.Mandelbrot;
+import ComplexFractal.RenderFractal;
 
 public class Start {
-
-    // TODO Make this method make the fractal
 
     /**
      * // Effects:
@@ -15,53 +14,31 @@ public class Start {
      * Then continues until the user wants to quit.
      */
     private void make_fractal(){
-        do {
-            ComplexNumber c = get_input();
-            print_result(c);
-            if( quit()){
-                break;
+        IO io = new IO();
+        do{
+            int type = io.chooseFractal();
+            double size = io.getSize();
+            ComplexNumber center = io.getCenter();
+            ComplexSet fractal;
+
+            //Mandelbrot Set
+            if(type == 0){
+                fractal = new Mandelbrot(size, center);
+                RenderFractal r = new RenderFractal(fractal);
+                r.render();
             }
-        } while(true);
+
+            //Julia Set
+            if (type == 1) {
+                ComplexNumber constant = io.getJuliaConstant();
+                fractal = new Julia(size, center, constant);
+                RenderFractal r = new RenderFractal(fractal);
+                r.render();
+            }
+
+        } while(!io.quit());
     }
 
-    /**
-     * // Effects:
-     * Prints on the screen if the given complex number is in the mandelbrot set.
-     * Requires:
-     * @param c A complex number
-     */
-    private void print_result(ComplexNumber c){
-        Mandelbrot m = new Mandelbrot(c);
-        if (m.is_mandelbrot())
-            System.out.println("The number " + c.re + " + i" + c.im + " is part of the Mandelbrot set.");
-        else
-            System.out.println("The number " + c.re + " + i" + c.im + " is not part of the Mandelbrot set.");
-    }
-
-    /**
-     * // Effects
-     * @return The user's Complex number
-     */
-    private ComplexNumber get_input(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Type in the real part of the number");
-        double real = scanner.nextDouble();
-        System.out.println("Type in the imaginary part of the number");
-        double imaginary = scanner.nextDouble();
-
-        return new ComplexNumber(real, imaginary);
-    }
-
-    /**
-     * // Effects
-     * @return True if user wants to quit program, False otherwise
-     */
-    private boolean quit(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Press '0' and <enter> to quit, press <enter> to continue.");
-        int y = scanner.nextInt();
-        return y == 0;
-    }
 
     public static void main(String args[]){
         Start s = new Start();

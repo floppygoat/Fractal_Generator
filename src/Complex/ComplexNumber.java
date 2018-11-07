@@ -1,13 +1,11 @@
 package Complex;
 
-import java.lang.Math;
-
 /**
  * A class the represents a Complex Number.  Contains two variables representing the real part and the imaginary part.
  */
-public class ComplexNumber {
-    public double re;
-    public double im;
+public class ComplexNumber{
+    private double re;
+    private double im;
 
     /**
      * // Modifies this
@@ -17,6 +15,22 @@ public class ComplexNumber {
      */
     public ComplexNumber(double re, double im){
         this.re = re;
+        this.im = im;
+    }
+
+    public double getRe(){
+        return re;
+    }
+
+    public double getIm(){
+        return im;
+    }
+
+    public void changeRe(double re){
+        this.re = re;
+    }
+
+    public void changeIm(double im){
         this.im = im;
     }
 

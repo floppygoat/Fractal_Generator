@@ -11,9 +11,9 @@ public class TestComplexNumber {
     public void testComplexSquare() {
         ComplexNumber c = new ComplexNumber(1, 1);
         c.square();
-        assertTrue(c.re ==  0 && c.im == 2);
+        assertTrue(c.getRe() ==  0 && c.getIm() == 2);
         c.square();
-        assertTrue(c.re == -4 && c.im == 0);
+        assertTrue(c.getRe() == -4 && c.getIm() == 0);
         //c.re = -4.56;
         //c.im = 3.59;
         //c.square();
@@ -24,8 +24,8 @@ public class TestComplexNumber {
     public void testComplexLength() {
         ComplexNumber c = new ComplexNumber(3, 4);
         assertTrue(c.length() == 5);
-        c.re = 5;
-        c.im = -12;
+        c.changeRe(5);
+        c.changeIm(-12);
         assertTrue(c.length() == 13);
     }
 
@@ -33,10 +33,10 @@ public class TestComplexNumber {
     public void testComplexAdd() {
         ComplexNumber c = new ComplexNumber(3, 4);
         c.add(c);
-        assertTrue(c.re == 6 && c.im == 8);
+        assertTrue(c.getRe() == 6 && c.getIm() == 8);
         ComplexNumber d = new ComplexNumber(-6, -13);
         c.add(d);
-        assertTrue(c.re == 0 && c.im == -5);
+        assertTrue(c.getRe() == 0 && c.getIm() == -5);
     }
 }
 

@@ -1,7 +1,9 @@
+/**
+
 package Test;
 
 import Complex.ComplexNumber;
-import Complex.Mandelbrot;
+import ComplexFractal.Mandelbrot;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,3 +24,4 @@ public class TestMandelbrot {
         assertTrue(m.is_mandelbrot());
     }
 }
+**/
