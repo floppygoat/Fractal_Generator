@@ -3,15 +3,19 @@ package ComplexFractal;
 import Complex.ComplexNumber;
 
 public class Iterator{
-    double width_step;
-    double height_step;
+    private double width_step;
+    private double height_step;
     private boolean has_next;
-    double re;
-    double im;
-    double x0;
-    double x1;
-    double y0;
-    double y1;
+    private double re;
+    private double im;
+    private double x0;
+    private double x1;
+    private double y0;
+    private double y1;
+    private int width;
+    private int height;
+    private int i;
+    private int j;
 
 
     public Iterator(int width, int height, double x0, double x1, double y0, double y1){
@@ -24,6 +28,11 @@ public class Iterator{
         this.x1 = x1;
         this.y0 = y0;
         this.y1 = y1;
+        this.width = width;
+        this.height = height;
+        this.i = 0;
+        this.j = 0;
+
     }
 
     public boolean hasNext(){
@@ -32,17 +41,22 @@ public class Iterator{
 
     public ComplexNumber nextNumber(){
         ComplexNumber c = new ComplexNumber(re, im);
-        if(re <= x1){
+        if(i < width - 1){
             re += width_step;
+            i++;
         }
-        else if(im >= y0){
+        else if(j < height - 1){
             re = x0;
             im -= height_step;
+            i = 0;
+            j++;
         }
         else{
             has_next = false;
             re = x0;
             im = y1;
+            i = 0;
+            j = 0;
         }
         return c;
     }

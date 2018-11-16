@@ -6,7 +6,7 @@ import Complex.ComplexNumber;
 public class Mandelbrot extends ComplexSet {
 
     public Mandelbrot(double size, ComplexNumber center){
-        super(255, 500, 500, size, center);
+        super(255, 5000, 5000, size, center);
     }
 
     /**
@@ -16,14 +16,14 @@ public class Mandelbrot extends ComplexSet {
      */
     public int getIterations(ComplexNumber c){
         ComplexNumber result = new ComplexNumber(c.getRe(), c.getIm());
-        for(int i = 0; i < super.iterations; i++) {
+        for(int i = 0; i < iterations; i++) {
             if (result.length() > 2) {
                 return i;
             }
             result.square();
             result.add(c);
         }
-        return super.iterations;
+        return iterations;
     }
 
 }

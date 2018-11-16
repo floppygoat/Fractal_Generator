@@ -1,8 +1,9 @@
 package ComplexFractal;
 
 import Complex.ComplexNumber;
+import observer.Subject;
 
-public abstract class ComplexSet {
+public abstract class ComplexSet extends Subject{
 
     protected int iterations;
     protected int width;
