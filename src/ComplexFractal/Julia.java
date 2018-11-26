@@ -7,7 +7,7 @@ public class Julia extends ComplexSet {
 
 
     public Julia(double size, ComplexNumber center, ComplexNumber constant){
-        super(255, 500, 500, size, center);
+        super(1000, 500, 500, size, center);
         this.constant = constant;
     }
 
@@ -18,13 +18,13 @@ public class Julia extends ComplexSet {
      */
     public int getIterations(ComplexNumber c){
         for(int i = 0; i < iterations; i++) {
-            if (c.length() > 2) {
-                return i;
+            if (c.lengthSquared() > 4) {
+                return i * 255 / iterations;
             }
             c.square();
             c.add(constant);
         }
-        return iterations;
+        return 255;
     }
 
 }

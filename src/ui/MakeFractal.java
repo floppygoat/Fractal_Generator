@@ -5,13 +5,8 @@ import ComplexFractal.ComplexSet;
 import ComplexFractal.Julia;
 import ComplexFractal.Mandelbrot;
 import ComplexFractal.RenderFractal;
-import observer.Observer;
 
-public class MakeFractal implements Observer {
-
-    public void update(String s){
-        System.out.println("File " + s + " is now complete.");
-    }
+public class MakeFractal{
 
     /**
      * // Effects:
@@ -21,9 +16,13 @@ public class MakeFractal implements Observer {
     public void make_fractal(){
         IO io = new IO();
         do{
-            int type = io.chooseFractal();
-            double size = io.getSize();
-            ComplexNumber center = io.getCenter();
+            //int type = io.chooseFractal();
+            //double size = io.getSize();
+            //ComplexNumber center = io.getCenter();
+
+            int type = 1;
+            double size = 4;
+            ComplexNumber center = new ComplexNumber(0, 0);
 
             ComplexSet fractal;
 

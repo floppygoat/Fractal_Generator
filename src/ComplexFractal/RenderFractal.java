@@ -1,6 +1,5 @@
 package ComplexFractal;
 
-import observer.Subject;
 import ui.IO;
 import ui.MakeFractal;
 
@@ -10,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class RenderFractal extends Subject{
+public class RenderFractal{
     private ComplexSet fractal;
     private int width;
     private int height;
@@ -26,7 +25,6 @@ public class RenderFractal extends Subject{
     }
 
     public void render(){
-        addObserver(makeFractal);
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
                 setPixel(i, j);
@@ -38,11 +36,12 @@ public class RenderFractal extends Subject{
 
     private void setPixel(int i, int j){
         int a = fractal.getNextIteration();
-        Color newColor = new Color(a,a,a);
+        Color newColor = new Color(255 - a, 255 - a,255 - a);
         b.setRGB(j, i, newColor.getRGB());
     }
 
     private void makeJPG(){
+
         IO io = new IO();
         String filename = io.getFileName();
         try {
@@ -51,8 +50,6 @@ public class RenderFractal extends Subject{
         } catch (IOException e){
             System.out.println("error");
         }
-        notifyObservers(filename);
     }
-
 
 }

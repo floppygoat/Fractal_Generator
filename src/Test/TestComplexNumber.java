@@ -23,10 +23,10 @@ public class TestComplexNumber {
     @Test
     public void testComplexLength() {
         ComplexNumber c = new ComplexNumber(3, 4);
-        assertTrue(c.length() == 5);
+        assertTrue(c.lengthSquared() == 25);
         c.changeRe(5);
         c.changeIm(-12);
-        assertTrue(c.length() == 13);
+        assertTrue(c.lengthSquared() == 13 * 13);
     }
 
     @Test

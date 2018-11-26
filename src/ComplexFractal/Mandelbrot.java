@@ -17,13 +17,13 @@ public class Mandelbrot extends ComplexSet {
     public int getIterations(ComplexNumber c){
         ComplexNumber result = new ComplexNumber(c.getRe(), c.getIm());
         for(int i = 0; i < iterations; i++) {
-            if (result.length() > 2) {
-                return i;
+            if (result.lengthSquared() > 4) {
+                return i * 255/iterations;
             }
             result.square();
             result.add(c);
         }
-        return iterations;
+        return 255;
     }
 
 }

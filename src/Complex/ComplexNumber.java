@@ -59,8 +59,8 @@ public class ComplexNumber{
      * // Effects:
      * @return The modulus of this
      */
-    public double length(){
-        return Math.sqrt(this.re * this.re + this.im * this.im);
+    public double lengthSquared(){
+        return this.re * this.re + this.im * this.im;
     }
 
 }
