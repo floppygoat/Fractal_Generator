@@ -6,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainGUI extends Application {
+    BorderPane rootNode;
 
     public static void main(String[] args) {
 
@@ -21,7 +22,7 @@ public class MainGUI extends Application {
 
         // Create a root node. In this case, a flow layout pane
         // is used, but several alternatives exist.
-        BorderPane rootNode = new BorderPane();
+        rootNode = new BorderPane();
 
         // Create a scene.
         Scene myScene = new Scene(rootNode, 800, 800);
@@ -31,7 +32,7 @@ public class MainGUI extends Application {
 
         AppMenu appMenu = new AppMenu();
         ViewImage image = new ViewImage();
-        ListFiles listFiles = new ListFiles(image);
+        ListFiles listFiles = new ListFiles(image, this);
 
 
         // Add the menu bar to the top of the border pane and

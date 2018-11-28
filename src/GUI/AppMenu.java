@@ -1,16 +1,27 @@
 package GUI;
 
+import Complex.ComplexNumber;
+import ComplexFractal.ComplexSet;
+import ComplexFractal.Julia;
+import ComplexFractal.RenderFractal;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
 public class AppMenu {
 
     MenuBar mb;
-    MenuItem exit;
+    private MenuItem exit;
+    private MenuItem new_julia;
+    private MenuItem new_mandelbrot;
 
 
     public AppMenu(){
@@ -19,12 +30,12 @@ public class AppMenu {
 
         // Create the File menu.
         Menu fileMenu = new Menu("File");
-        MenuItem open = new MenuItem("Open");
-        MenuItem close = new MenuItem("Close");
-        MenuItem save = new MenuItem("Save");
+        Menu new_fractal = new Menu("New");
+        new_julia = new MenuItem("Julia Set");
+        new_mandelbrot = new MenuItem("Mandelbrot Set");
         exit = new MenuItem("Exit");
-        fileMenu.getItems().addAll(open, close, save,
-                new SeparatorMenuItem(), exit);
+        new_fractal.getItems().addAll(new_julia, new_mandelbrot);
+        fileMenu.getItems().addAll(new_fractal, new SeparatorMenuItem(), exit);
 
         // Add File menu to the menu bar.
         mb.getMenus().add(fileMenu);
@@ -37,22 +48,104 @@ public class AppMenu {
                 String name = ((MenuItem) ae.getTarget()).getText();
 
                 // If Exit is chosen, the program is terminated.
-                if (name.equals("Exit")) {
-
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Complex Fractal Generator");
-                    alert.setHeaderText("Exit Confirmation");
-                    alert.setContentText("Are you sure you want to exit?");
-
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.get() == ButtonType.OK) {
-                        Platform.exit();
-                    }
+                if(name.equals("Exit")){
+                    FileExit();
+                }
+                else if(name.equals("Julia Set")){
+                    FileNewJuliaSet();
+                }
+                else if(name.equals("Mandelbrot Set")){
+                    FileExit();
                 }
             }
         };
 
         exit.setOnAction(MEHandler);
+        new_julia.setOnAction(MEHandler);
+    }
+
+    private void FileExit(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Complex Fractal Generator");
+        alert.setHeaderText("Exit Confirmation");
+        alert.setContentText("Are you sure you want to exit?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            Platform.exit();
+        }
+    }
+
+    private void FileNewJuliaSet(){
+        Stage stage = new Stage();
+        VBox box = new VBox();
+
+        Label labelRePart = new Label("Enter the real part of the Julia Set constant");
+        TextField textRePart = new TextField();
+        Label labelRePartErr = new Label();
+        Label labelImPart = new Label("Enter the imaginary part of the Julia Set constant");
+        TextField textImPart = new TextField();
+        Label labelImPartErr = new Label();
+
+        HBox buttons = new HBox();
+        buttons.setPadding(new Insets(15, 12, 15, 12));
+        buttons.setSpacing(10);
+
+        Button btnEnter = new Button();
+        btnEnter.setText("Enter");
+
+        btnEnter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                boolean b = true;
+                String s = textImPart.getText();
+
+                double Re = 0;
+                double Im = 0;
+
+                try { Re = Double.parseDouble(s); } catch (NumberFormatException e) {
+                    labelRePartErr.setText("Error");
+                    b = false;
+                }
+
+                try { Im = Double.parseDouble(s); } catch (NumberFormatException e) {
+                    labelImPartErr.setText("Error");
+                    b = false;
+                }
+
+                if (b) {
+                    ComplexNumber c = new ComplexNumber(Re, Im);
+                    ComplexSet fractal = new Julia(4, new ComplexNumber(0, 0), c);
+                    RenderFractal r = new RenderFractal(fractal);
+                    r.render();
+                    stage.close(); // return to main window
+                }
+            }
+        });
+
+        Button btnCancel = new Button();
+        btnEnter.setText("Cancel");
+        btnEnter.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                stage.close();
+            }
+        });
+
+        buttons.getChildren().addAll(btnEnter, btnCancel);
+
+
+        box.getChildren().add(labelRePart);
+        box.getChildren().add(textRePart);
+        box.getChildren().add(labelRePartErr);
+        box.getChildren().add(labelImPart);
+        box.getChildren().add(textImPart);
+        box.getChildren().add(labelImPartErr);
+        box.getChildren().add(buttons);
+
+        Scene scene = new Scene(box, 300, 400);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

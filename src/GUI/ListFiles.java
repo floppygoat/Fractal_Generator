@@ -17,10 +17,11 @@ public class ListFiles {
     Label title;
     ListView lv;
     ViewImage image;
+    MainGUI mainGUI;
 
     ObservableList<String> list = FXCollections.observableArrayList();
 
-    public ListFiles(ViewImage image){
+    public ListFiles(ViewImage image, MainGUI mainGUI){
         updateList();
         lv = new ListView(list);
         lv.setItems(list);
@@ -29,6 +30,7 @@ public class ListFiles {
         listFilesPane.setTop(title);
         listFilesPane.setCenter(lv);
         this.image = image;
+        this.mainGUI = mainGUI;
     }
 
     public void updateList(){
@@ -57,8 +59,7 @@ public class ListFiles {
         lv.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("clicked on " + lv.getSelectionModel().getSelectedItem());
-                image.updateImage(lv.getSelectionModel().getSelectedItem().toString());
+                image.updateImage(lv.getSelectionModel().getSelectedItem().toString(), mainGUI);
             }
         });
     }

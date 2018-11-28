@@ -1,7 +1,6 @@
 package ComplexFractal;
 
 import ui.IO;
-import ui.MakeFractal;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,14 +13,14 @@ public class RenderFractal{
     private int width;
     private int height;
     private BufferedImage b;
-    public MakeFractal makeFractal;
+    //public MakeFractal makeFractal;
 
-    public RenderFractal(ComplexSet fractal, MakeFractal makeFractal){
+    public RenderFractal(ComplexSet fractal){
         this.fractal = fractal;
         this.width = fractal.width;
         this.height = fractal.height;
         this.b = new BufferedImage(width, height, 1);
-        this.makeFractal = makeFractal;
+        //this.makeFractal = makeFractal;
     }
 
     public void render(){

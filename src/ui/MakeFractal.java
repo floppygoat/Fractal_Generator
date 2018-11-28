@@ -41,7 +41,7 @@ public class MakeFractal{
                     throw new NullPointerException();
                 }
 
-                RenderFractal r = new RenderFractal(fractal, this);
+                RenderFractal r = new RenderFractal(fractal);
                 r.render();
 
             } catch (NullPointerException e){
