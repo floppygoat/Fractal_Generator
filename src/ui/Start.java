@@ -1,9 +1,11 @@
 package ui;
 
+import GUI.RootNode;
+
 public class Start{
 
     public static void main(String args[]){
-        MakeFractal s = new MakeFractal();
-        s.make_fractal();
+        RootNode rootNode = new RootNode();
+        rootNode.launch();
     }
 }

@@ -21,6 +21,8 @@ import java.util.Optional;
 
 public class AppMenu {
 
+    RootNode rootNode;
+
     MenuBar mb;
     private MenuItem exit;
     private MenuItem new_julia;
@@ -30,7 +32,9 @@ public class AppMenu {
     private Stage renderPopup;
 
 
-    public AppMenu(MainGUI mainGUI){
+    public AppMenu(RootNode rootNode){
+
+        this.rootNode = rootNode;
         // Create the menu bar.
         mb = new MenuBar();
 
