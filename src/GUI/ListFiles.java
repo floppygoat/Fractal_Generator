@@ -7,9 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-
-import java.io.File;
-import java.io.FilenameFilter;
+import ui.ListFractalFiles;
 
 public class ListFiles {
 
@@ -22,7 +20,9 @@ public class ListFiles {
     ObservableList<String> list = FXCollections.observableArrayList();
 
     public ListFiles(ViewImage image, MainGUI mainGUI){
-        updateList();
+        ListFractalFiles listFractalFiles = new ListFractalFiles();
+        listFractalFiles.updateList();
+        list = listFractalFiles.getList();
         lv = new ListView(list);
         lv.setItems(list);
         title = new Label("Choose Fractal Image");
@@ -33,27 +33,6 @@ public class ListFiles {
         this.mainGUI = mainGUI;
     }
 
-    public void updateList(){
-        File folder = new File(System.getProperty("user.dir"));
-
-        //Implementing FilenameFilter to retrieve only txt files
-
-        FilenameFilter txtFileFilter = new FilenameFilter(){
-            @Override
-            public boolean accept(File dir, String name)
-            {
-                return name.endsWith(".jpg");
-            }
-        };
-
-        //Passing txtFileFilter to listFiles() method to retrieve only txt files
-
-        File[] files = folder.listFiles(txtFileFilter);
-
-        for (File file : files) {
-            list.add(file.getName());
-        }
-    }
 
     public void listEvent(){
         lv.setOnMouseClicked(new EventHandler<MouseEvent>() {

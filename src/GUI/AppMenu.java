@@ -5,14 +5,17 @@ import ComplexFractal.ComplexSet;
 import ComplexFractal.Julia;
 import ComplexFractal.RenderFractal;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import ui.ListFractalFiles;
 
 import java.util.Optional;
 
@@ -24,7 +27,10 @@ public class AppMenu {
     private MenuItem new_mandelbrot;
 
 
-    public AppMenu(){
+    private Stage renderPopup;
+
+
+    public AppMenu(MainGUI mainGUI){
         // Create the menu bar.
         mb = new MenuBar();
 
@@ -114,25 +120,25 @@ public class AppMenu {
                 }
 
                 if (b) {
+                    RenderPopup();
                     ComplexNumber c = new ComplexNumber(Re, Im);
                     ComplexSet fractal = new Julia(4, new ComplexNumber(0, 0), c);
                     RenderFractal r = new RenderFractal(fractal);
                     r.render();
-                    stage.close(); // return to main window
                 }
             }
         });
 
         Button btnCancel = new Button();
-        btnEnter.setText("Cancel");
-        btnEnter.setOnAction(new EventHandler<ActionEvent>() {
+        btnCancel.setText("Cancel");
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 stage.close();
             }
         });
 
-        buttons.getChildren().addAll(btnEnter, btnCancel);
+        buttons.getChildren().addAll(btnCancel, btnEnter);
 
 
         box.getChildren().add(labelRePart);
@@ -143,9 +149,33 @@ public class AppMenu {
         box.getChildren().add(labelImPartErr);
         box.getChildren().add(buttons);
 
-        Scene scene = new Scene(box, 300, 400);
+        Scene scene = new Scene(box, 250, 300);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void RenderPopup(){
+        renderPopup = new Stage();
+        BorderPane bp = new BorderPane();
+
+        Label label = new Label("File is now rendering");
+        Button button = new Button("Okay");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                renderPopup.close();
+            }
+        });
+
+        bp.setCenter(label);
+        bp.setBottom(button);
+        Scene scene = new Scene(bp, 250, 300);
+        renderPopup.setScene(scene);
+        renderPopup.show();
+    }
+
+    private String FileNamePopoup(){
+        ListFractalFiles
     }
 
 }
