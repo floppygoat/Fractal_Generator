@@ -5,8 +5,8 @@ import Complex.ComplexNumber;
 
 public class Mandelbrot extends ComplexSet {
 
-    public Mandelbrot(double size, ComplexNumber center){
-        super(255, 5000, 5000, size, center);
+    public Mandelbrot(double span, ComplexNumber center, int iterations, int resolution){
+        super(iterations, resolution, resolution, span, center);
     }
 
     /**

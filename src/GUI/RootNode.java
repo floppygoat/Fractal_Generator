@@ -33,7 +33,7 @@ public class RootNode extends Application {
         // the response label to the center position.
         bp.setTop(appMenu.mb);
         bp.setCenter(image.getLabel());
-        bp.setLeft(listFiles.getListFilesPane());
+        bp.setLeft(listFiles.getListFilesPanel());
 
         appMenu.MenuEvent();
         listFiles.listEvent();

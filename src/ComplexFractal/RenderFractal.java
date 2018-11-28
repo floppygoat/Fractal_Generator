@@ -1,7 +1,5 @@
 package ComplexFractal;
 
-import ui.IO;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,24 +11,20 @@ public class RenderFractal{
     private int width;
     private int height;
     private BufferedImage b;
-    //public MakeFractal makeFractal;
 
     public RenderFractal(ComplexSet fractal){
         this.fractal = fractal;
         this.width = fractal.width;
         this.height = fractal.height;
         this.b = new BufferedImage(width, height, 1);
-        //this.makeFractal = makeFractal;
     }
 
     public void render(){
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
                 setPixel(i, j);
             }
         }
-        System.out.println("Render Complete");
-        makeJPG();
     }
 
     private void setPixel(int i, int j){
@@ -39,10 +33,8 @@ public class RenderFractal{
         b.setRGB(j, i, newColor.getRGB());
     }
 
-    private void makeJPG(){
-
-        IO io = new IO();
-        String filename = io.getFileName();
+    public void makeJPG(String filename){
+        filename = filename + ".jpg";
         try {
             File myNewJPegFile = new File(filename);
             ImageIO.write(b, "jpg", myNewJPegFile);

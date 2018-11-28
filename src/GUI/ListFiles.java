@@ -7,39 +7,42 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import ui.ListFractalFiles;
 
 public class ListFiles {
 
-    private BorderPane listFilesPane;
+    private BorderPane listFilesPanel;
     private Label title;
     private ListView lv;
-    private ViewImage image;
-    private RootNode mainGUI;
+    private RootNode rootNode;
 
     ObservableList<String> list = FXCollections.observableArrayList();
 
-    public ListFiles(RootNode mainGUI){
+    public ListFiles(RootNode rootNode){
         ListFractalFiles listFractalFiles = new ListFractalFiles();
         listFractalFiles.updateList();
         list = listFractalFiles.getList();
         lv = new ListView(list);
         lv.setItems(list);
         title = new Label("Choose Fractal Image");
-        listFilesPane = new BorderPane();
-        listFilesPane.setTop(title);
-        listFilesPane.setCenter(lv);
-        this.mainGUI = mainGUI;
+        listFilesPanel = new BorderPane();
+        listFilesPanel.setTop(title);
+        listFilesPanel.setCenter(lv);
+        this.rootNode = rootNode;
     }
 
-    public BorderPane getListFilesPane(){
-        return listFilesPane;
+    public BorderPane getListFilesPanel(){
+        return listFilesPanel;
+    }
+
+    public ObservableList<String> getList(){
+        return list;
     }
 
     public void listEvent(){
         lv.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                ViewImage image = new ViewImage(rootNode);
                 image.updateImage(lv.getSelectionModel().getSelectedItem().toString());
             }
         });
