@@ -101,10 +101,6 @@ public class AppMenu {
         TextField textImPart = new TextField();
         Label labelImPartErr = new Label();
 
-        Label labelSpan = new Label("Enter the horizontal span of the Julia Set");
-        TextField textSpan = new TextField();
-        Label labelSpanErr = new Label();
-
         Label labelIterations = new Label("Enter the number of iterations");
         TextField textIterations = new TextField();
         Label labelIterationsErr = new Label();
@@ -197,7 +193,6 @@ public class AppMenu {
 
         box.getChildren().addAll(labelRePart, textRePart, labelRePartErr);
         box.getChildren().addAll(labelImPart, textImPart, labelImPartErr);
-        box.getChildren().addAll(labelSpan, textSpan, labelSpanErr);
         box.getChildren().addAll(labelIterations, textIterations, labelIterationsErr);
         box.getChildren().addAll(labelResolution, textResolution, labelResolutionErr);
         box.getChildren().add(buttons);
@@ -301,7 +296,7 @@ public class AppMenu {
                     RenderPopup();
                     ComplexNumber c = new ComplexNumber(Re, Im);
                     ComplexSet fractal = new Mandelbrot(
-                            4,
+                            span,
                             c,
                             iterations,
                             resolution);

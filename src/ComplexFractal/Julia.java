@@ -6,8 +6,8 @@ public class Julia extends ComplexSet {
     public ComplexNumber constant;
 
 
-    public Julia(double horizontal_size, ComplexNumber center, ComplexNumber constant, int iterations, int resolution){
-        super(iterations, resolution, resolution, horizontal_size, center);
+    public Julia(double span, ComplexNumber center, ComplexNumber constant, int iterations, int resolution){
+        super(iterations, resolution, resolution, span, center);
         this.constant = constant;
     }
 
